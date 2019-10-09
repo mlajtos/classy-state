@@ -20,6 +20,12 @@ export class Counter {
   reset() {
     this.state = 0;
   }
+  resetWithDelay() {
+    setTimeout(
+      () => this.reset(),
+      1000
+    )
+  }
 }
 ```
 
@@ -38,8 +44,9 @@ function CounterUI() {
     <div>
       <div>{counter.state}</div>
         <button onClick={counter.inc}>Inc</button>
-        <button onClick={counter.dec}>Inc</button>
+        <button onClick={counter.dec}>Dec</button>
         <button onClick={counter.reset}>Reset</button>
+        <button onClick={counter.resetWithDelay}>Reset with delay</button>
     </div>
   );
 }
