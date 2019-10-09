@@ -1,10 +1,10 @@
 # 🎩 Classy State
 
-You are tasked with coding a brand new React fronted for some legacy code that uses shared mutable state inside a class. Don't kill yourself just yet, try `useClassyState` hook first.
+Let's face it – writing reducers with all the orchestration is pain in the ass. On the other hand, writing shared mutable state is a cardinal sin. Imperative code that mutates the state feels straightforward and easy. So. Much. Headache. Is there a middle path? Now there is – `useClassyState` hook.
+
+See [classy-state-playground CodeSandbox](https://codesandbox.io/s/new-kwwhp) for live demo.
 
 ## Example
-
-See [classy-state-playground Codesandox](https://codesandbox.io/s/new-kwwhp) for live demo.
 
 ```js
 // legacy-code.js
@@ -52,10 +52,6 @@ function CounterUI() {
 }
 ```
 
-## Instalation
-
-🚫There is no NPM package and won't be.
-
 ## WAT
 
 Yes.
@@ -66,4 +62,4 @@ Proxies and Immer.
 
 ## But why?
 
-Why not.
+Because why not.
