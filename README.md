@@ -1,8 +1,10 @@
 # 🎩 Classy State
 
-You are tasked with coding a brand new React fronted for some legacy code that uses shared mutable state inside a class. Don't kill yourself just yet, try `useClassyState` first.
+You are tasked with coding a brand new React fronted for some legacy code that uses shared mutable state inside a class. Don't kill yourself just yet, try `useClassyState` hook first.
 
 ## Example
+
+See [classy-state-playground Codesandox](https://codesandbox.io/s/new-kwwhp) for live demo.
 
 ```js
 // legacy-code.js
@@ -25,7 +27,7 @@ export class Counter {
 // ui.js
 
 import React from "react";
-import { useClassyState } from "use-classy-state";
+import { useClassyState } from "classy-state";
 
 import { Counter } from "./legacy-code";
 
@@ -45,6 +47,20 @@ function CounterUI() {
 
 ## Instalation
 
+🚫There is no NPM package yet. Sorry.
+
 ```
-yarn add use-classy-state
+yarn add classy-state
 ```
+
+## WAT
+
+Yes.
+
+## How?
+
+Proxies and Immer.
+
+## But why?
+
+Why not.
