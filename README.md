@@ -7,8 +7,9 @@ See [classy-state-playground CodeSandbox](https://codesandbox.io/s/new-kwwhp) fo
 ## Example
 
 ```js
-// legacy-code.js
+// Counter.js
 
+// plain old class with mutable state
 export class Counter {
   state = 0
   inc() {
@@ -35,9 +36,10 @@ export class Counter {
 import React from "react";
 import { useClassyState } from "classy-state";
 
-import { Counter } from "./legacy-code";
+import { Counter } from "./Counter";
 
-function CounterUI() {
+function CounterApp() {
+  // magic object with immmutable state
   const counter = useClassyState(Counter);
   
   return (
