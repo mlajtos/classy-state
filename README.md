@@ -52,14 +52,24 @@ function CounterUI() {
 }
 ```
 
-## WAT
+## FAQ
+
+### WAT
 
 Yes.
 
-## How?
+### How?
 
 Proxies and Immer.
 
-## But why?
+### But why?
 
 Because why not.
+
+### Is this a realy thing or just a joke?
+
+See [classy-state-playground CodeSandbox](https://codesandbox.io/s/new-kwwhp) for live demo and you be the judge.
+
+---
+
+Stay classy.
