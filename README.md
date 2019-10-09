@@ -1,6 +1,6 @@
 # 🎩 Classy State
 
-Let's face it – writing reducers with all the orchestration is pain in the ass. On the other hand, writing shared mutable state is a cardinal sin. Imperative code that mutates the state feels straightforward and easy. So. Much. Headache. Is there a middle path? Now there is – `useClassyState` hook.
+Let's face it – writing reducers with all the orchestration is pain in the ass. On the other hand, writing shared mutable state is a cardinal sin. Imperative code that mutates the state feels straightforward and easy. *So. Much. Headache.* Is there a middle path? Now there is – `useClassyState` hook.
 
 See [classy-state-playground CodeSandbox](https://codesandbox.io/s/new-kwwhp) for live demo.
 
@@ -66,10 +66,10 @@ Proxies and Immer.
 
 Because why not.
 
-### Is this a realy thing or just a joke?
+### Is this a real thing or just a joke?
 
-See [classy-state-playground CodeSandbox](https://codesandbox.io/s/new-kwwhp) for live demo and you be the judge.
+Check out [live demo](https://codesandbox.io/s/new-kwwhp) and you be the judge.
 
 ---
 
-Stay classy.
+<sub><sup>Stay classy. ❤️</sup></sub>
