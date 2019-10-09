@@ -67,19 +67,21 @@ function CounterApp() {
 
 ### WAT
 
-Yes.
+Yes, Javascript is awesome.
 
-### How?
+### How does it work?
 
 [Proxies](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy) and [Immer](https://immerjs.github.io/immer/docs/introduction). Magic on top of more magic.
 
 ### But why?
 
-Because *stores*, *reducers*, *actions*, *dispatch*, *multi-dispatch*, *switch-case*, *action types*, *action creators*, *async action creators*, *middleware*, *thunks*, etc. is a cancer.
+Because *stores*, *reducers*, *actions*, *dispatch*, *multi-dispatch*, *switch-case*, *action types*, *action creators*, *async action creators*, *middleware*, *thunks*, etc. are a bit too much.
 
-### Is this a real thing or just a joke?
+### Is this a joke?
 
-Check out [live demo](https://codesandbox.io/s/new-kwwhp) and you be the judge. It's a hacky proof-of-concept, that you can play with and easily break.
+Yes and no. [The code](https://codesandbox.io/s/new-kwwhp) works, but it's a hacky proof-of-concept. You can play with it and will probably break it easily.
+
+It seems weird not to share such a cool hack.
 
 ---
 
