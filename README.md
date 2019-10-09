@@ -47,11 +47,7 @@ function CounterUI() {
 
 ## Instalation
 
-🚫There is no NPM package yet. Sorry.
-
-```
-yarn add classy-state
-```
+🚫There is no NPM package and won't be.
 
 ## WAT
 
