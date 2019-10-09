@@ -1,8 +1,16 @@
 # 🎩 Classy State
 
-Let's face it – writing reducers with all the orchestration is pain in the ass. On the other hand, writing shared mutable state is a cardinal sin. Imperative code that mutates the state feels straightforward and easy. *So. Much. Headache.* Is there a middle path? Now there is – `useClassyState` hook.
+Here are the facts:
 
-See [classy-state-playground CodeSandbox](https://codesandbox.io/s/new-kwwhp) for live demo.
+1. Writing good state managment code in reactive programming paradigm is pain in the ass.
+2. Using shared mutable state is big no-no.
+3. Imperative code with mutations feels straightforward and easy.
+
+*So. Much. Headache.*
+
+Is there a middle path?
+
+Yes, [`useClassyState` hook](https://codesandbox.io/s/new-kwwhp).
 
 ## Example
 
@@ -31,7 +39,7 @@ export class Counter {
 ```
 
 ```js
-// ui.js
+// CounterApp.js
 
 import React from "react";
 import { useClassyState } from "classy-state";
@@ -39,7 +47,8 @@ import { useClassyState } from "classy-state";
 import { Counter } from "./Counter";
 
 function CounterApp() {
-  // magic object with immmutable state
+
+  // magic object with immutable state
   const counter = useClassyState(Counter);
   
   return (
@@ -62,15 +71,15 @@ Yes.
 
 ### How?
 
-Proxies and Immer.
+[Proxies](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy) and [Immer](https://immerjs.github.io/immer/docs/introduction). Magic on top of more magic.
 
 ### But why?
 
-Because why not.
+Because *stores*, *reducers*, *actions*, *dispatch*, *multi-dispatch*, *switch-case*, *action types*, *action creators*, *async action creators*, *middleware*, *thunks*, etc. is a cancer.
 
 ### Is this a real thing or just a joke?
 
-Check out [live demo](https://codesandbox.io/s/new-kwwhp) and you be the judge.
+Check out [live demo](https://codesandbox.io/s/new-kwwhp) and you be the judge. It's a hacky proof-of-concept, that you can play with and easily break.
 
 ---
 
