@@ -9,7 +9,9 @@
 
 ## :warning: Work in progress
 
-This repo does not contain any code other then examples of how *Classy State* might be used. If you want code, go and try this CodeSandbox – [Classy State Playground](https://codesandbox.io/s/new-kwwhp).
+This repo does not contain any code other then example of how *Classy State* might be used and explanation of how it is achieved.
+
+If you want to try `Classy State` as it is currently implemented, go to this CodeSandbox – [Classy State Playground](https://codesandbox.io/s/new-kwwhp).
 
 ## Example
 
@@ -31,6 +33,15 @@ export class Counter {
     this.state = 0;
   }
 }
+```
+
+And you would use it like this:
+
+```
+const counter = new Counter();
+counter.increase();
+counter.decrease();
+counter.reset();
 ```
 
 This is considered **a bad code** by the React community because:
@@ -72,6 +83,37 @@ function CounterApp() {
 This is how you should use your stateful class inside React code.
 
 `useClassyState` takes definition of your stateful class and transforms it into an object that behaves as React would expect. On top of that, `counter` (the transformed object) is typed as an instance of `Counter` class, so you get proper code-completion and type-checking for free.
+
+## Magic
+
+Methods in classes are functions that have an object that is an instance of a class, bound to the `this` keyword. This binding can be done by `instance.method()` invocation or you can explicitly bind an object (and parameters) with `Function.prototype.bind` function – `fn.bind(instance)()`.
+
+So what if we take definition of a method, e.g. `increase`, and augment it with Immer's produce function:
+
+```js
+import { produce } from "immer";
+
+// taken out from the class definition
+const increase = function() {
+  this.state += 1;
+};
+
+const immutableIncrease = produce(
+  function(draft) {
+    increase.bind(draft)()
+  }
+);
+
+const instance = {
+  state: 0
+};
+
+const augmentedInstance = immutableIncrease(instance);
+```
+
+So what have we done is basically took a function that mutates class instance, and we transformed it into a non-mutating function that produces new instance.
+
+This is the main insight of `Classy State`, everything else is just an implementation detail.
 
 ## FAQ
 
