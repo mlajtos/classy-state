@@ -42,7 +42,7 @@ export class Counter {
 
 And you would use it like this:
 
-```
+```js
 import { Counter } from "Counter";
 
 const counter = new Counter();
@@ -314,40 +314,11 @@ setInstance(methods.decrease(instance())[0]);
 
 ```
 
-### Wrapping it all
+### TODO
 
-**TODO: methods object should contain all the logic for mutation**
-
-```js
-const createMethod = (fn) => (instance, ...args) => {
-  // same as before
-};
-
-const createMethods = StatefulClass => (
-  Object.fromEntries(
-    Object.getOwnPropertyNames(StatefulClass.prototype).map(methodName => [
-      methodName,
-      method(StatefulClass.prototype[methodName])
-    ])
-  )
-);
-
-const method = (functionFromPrototype) => (instance) => (...args) => {
-  const fn = createMethod(functionFromPrototype);
-  const [instance, returnValue] = fn(state, ...args);
-}
-
-
-const methods = createMethods(Counter);
-
-const [instance, setInstance, instances] = useFakeState({ state: 0 });
-
-setInstance(methods.increase(instance())[0]);
-setInstance(methods.increase(instance())[0]);
-setInstance(methods.reset(instance())[0]);
-setInstance(methods.decrease(instance())[0]);
-
-```
+1. `createMethod` should be curried like this `(fn) => (instance) => (...args) => {...}`
+2. functions in `methods` should contain all the mutation logic
+3. ...
 
 ---
 
