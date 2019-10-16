@@ -32,6 +32,9 @@ export class Counter {
   reset() {
     this.state = 0;
   }
+  isValid() {
+    return this.state >= 0;
+  }
 }
 ```
 
@@ -39,19 +42,30 @@ And you would use it like this:
 
 ```
 const counter = new Counter();
+console.log(counter.state); // 0
+console.log(counter.isValid()) // true
+
 counter.increase();
-counter.decrease();
+console.log(counter.state); // 1
+
+counter.increase();
+console.log(counter.state); // 2
+
 counter.reset();
+console.log(counter.state); // 0
+
+counter.decrease();
+console.log(counter.isValid()); // false
 ```
 
 This is considered **a bad code** by the React community because:
 
-1. using mutable state is considered a bad practise
+1. using mutable state is a bad practise
 2. you can't use it in your React component
 
 These are valid objections that should be adressed.
 
-First objection, mutability of the state, is beatifully solved by [Immer](https://immerjs.github.io/immer/docs/introduction). With Immer you can write seemingly mutable code that won't change the original state. It will produce a new state that is structurally shared with the original one, so the immutability is preserved.
+First objection, mutability of the state, is beatifully solved by [Immer](https://immerjs.github.io/immer/docs/introduction). With Immer you can write seemingly mutable code that won't change the original state. It will produce a new state that is structurally shared with the original one – immutability is preserved.
 
 Second objection can be distilled to the following: React doesn't know when the state has changed and so it doesn't know when to rerender. This is where *Classy State* comes in...
 
@@ -66,41 +80,45 @@ import { Counter } from "./Counter";
 
 function CounterApp() {
 
-  // This is where magic happens...
+  // This is where magic happens.
   const counter = useClassyState(Counter);
   
+  // Now you can use `counter` as you would expect...
   return (
-    <div>
-      <div>{counter.state}</div>
-      <button onClick={counter.inc}>Inc</button>
-      <button onClick={counter.dec}>Dec</button>
-      <button onClick={counter.reset}>Reset</button>
-    </div>
+    <>
+      <div style={{ color: counter.isValid() ? "green" : "red" }}>
+        {counter.state}
+      </div>
+      <button onClick={counter.increase}>
+        Increase
+      </button>
+      <button onClick={counter.decrease}>
+        Decrease
+      </button>
+      <button onClick={counter.reset}>
+        Reset
+      </button>
+    </>
   );
 }
 ```
 
-This is how you should use your stateful class inside React code.
-
-`useClassyState` takes definition of your stateful class and transforms it into an object that behaves as React would expect. On top of that, `counter` (the transformed object) is typed as an instance of `Counter` class, so you get proper code-completion and type-checking for free.
+`useClassyState` takes definition of your stateful class and transforms it into an object that behaves as you (and React) would expect. On top of that, `counter` (the transformed object) is typed as an instance of the `Counter` class, so you get proper code-completion and type-checking for free.
 
 ## Magic
 
-Methods in classes are functions that have an object that is an instance of a class, bound to the `this` keyword. This binding can be done by `instance.method()` invocation or you can explicitly bind an object (and parameters) with `Function.prototype.bind` function – `fn.bind(instance)()`.
+Method on an instance of our class, i.e. `(new Counter()).increase`, is a function with the instance bound to `this` keyword. This function lives on the class prototype, i.e. `Counter.prototype.increase`. We can take this function from the prototype and bind them to anything we wish via `Function.prototype.bind` function – `Counter.prototype.increase.bind({ state: 0 })()`.
 
 So what if we take definition of a method, e.g. `increase`, and augment it with Immer's produce function:
 
 ```js
 import { produce } from "immer";
 
-// taken out from the class definition
-const increase = function() {
-  this.state += 1;
-};
+const increase = Counter.prototype.increase
 
 const immutableIncrease = produce(
   function(draft) {
-    increase.bind(draft)()
+    increase.apply(draft)()
   }
 );
 
