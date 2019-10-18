@@ -2,10 +2,13 @@
 
 > Don't fear the stateful classes.
 
-1. Write easy-to-grasp class with methods that mutate and access the state.
+1. Write easy-to-grasp class with methods that mutate and access the encapsulated state.
 2. Run it with immutable backend powered by [Immer](https://immerjs.github.io/immer/docs/introduction).
 3. ???
 4. Profit!
+
+This effort is motivated by the footnote of the article [What’s So Great About Redux?
+](https://www.freecodecamp.org/news/whats-so-great-about-redux-ac16f1cc0f8b/#535d).
 
 ## :warning: Work in progress
 
@@ -13,7 +16,7 @@ This repo does not contain any code other then example of what *Classy State* is
 
 If you want to try *Classy State* as it is currently implemented, go to this CodeSandbox – [Classy State Playground](https://codesandbox.io/s/new-kwwhp).
 
-## Guide
+## Walkthrough
 
 ### State without ceremony
 
@@ -83,14 +86,16 @@ Second objection can be distilled to the following: React doesn't know when the 
 // CounterApp.js
 
 import React from "react";
+
+// Import magic.
 import { useClassyState } from "classy-state";
 
-// Import your stateful class...
+// Import your stateful class.
 import { Counter } from "./Counter";
 
 function CounterApp() {
 
-  // This is where magic happens.
+  // This is where magic happens!
   const counter = useClassyState(Counter);
   
   // Now you can use `counter` as you would expect...
@@ -115,15 +120,15 @@ function CounterApp() {
 
 Again, this is pretty straightforward and a bit boring code. However, there is the magic call to `useClassyState` that makes everything work. If you would create a new instance of the `Counter` – `const counter = new Counter()` – and used it instead of the hook call, you would be surprised because your app wouldn't work.
 
-What `useClassyState` hook does is it takes the definition of your stateful class and transforms it into an object that behaves as you (and React) would expect. On top of that, `counter` (the transformed object) is typed as an instance of the `Counter` class, so you get proper code completion and type checking for free.
+What `useClassyState` hook does is it takes the definition of your stateful class and transforms it into an object that behaves as you (and React) would expect. You get immutability of the state, reactivity and on top of that, `counter` (the transformed object) is typed as an instance of the `Counter` class, so you get proper code completion and type checking for free.
 
-From the user perspective, this is all there is to *Classy State*. There is just a single hook and no additional concepts you need to learn – no stores, no reducers, no actions, no dispatch, no multi-dispatch, no switch-case, no action types, no action creators, no async action creators, no middleware, no thunks, no sagas, etc. This won't replace Redux, but [you might not need Redux](https://medium.com/@dan_abramov/you-might-not-need-redux-be46360cf367) anyway.
+From the user perspective, this is all there is to *Classy State*. There is just a single hook and no additional concepts you need to learn – no stores, no reducers, no actions, no dispatch, no multi-dispatch, no switch-case, no action types, no action creators, no async action creators, no middleware, no thunks, no sagas, etc. This won't replace Redux anytime soon, but [you might not need Redux](https://medium.com/@dan_abramov/you-might-not-need-redux-be46360cf367) anyway.
 
-### Under the hood
+## Under the hood
 
 So how does `useClassyState` works? This is a step-by-step guide of how it might be implemented... This explanation describes naive implementation, but is good way to grasp the inner workings. [Current implementation](https://codesandbox.io/s/new-kwwhp) uses Proxies, has bugs and is cheating a bit – you have been warned.
 
-### Classes + methods === prototypes + functions
+### Classes + methods === objects + prototypes + functions
 
 Method on an instance of a class, i.e. `(new Counter()).increase`, is a function with the instance bound to `this` keyword. This function lives on the class prototype, i.e. `Counter.prototype.increase`. We can take this function from the prototype and apply/call it with any object we wish – `Counter.prototype.increase.apply({ state: 0 })`.
 
@@ -151,7 +156,6 @@ What have we done is basically took a function that mutates class instance, and 
 ### Arguments
 
 Our `Counter.prototype.increase` takes an optional argument that we do not take into consideration, so let's change that:
-
 
 ```js
 import { produce } from "immer";
