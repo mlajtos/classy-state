@@ -5,13 +5,39 @@
 
 > Redux is essentially a slower but more sophisticated object system on top of JavaScript’s existing one, where reducers and middleware act as interpreters and interceptors around the JavaScript object that actually holds the state.
 
-Classy state aims to provide immutability, reactivity, type safety, monitoring and clean code to your state managment.
+Classy state aims to provide immutability, reactivity, type safety, monitoring and clean code for your state managment.
 
-## Why should I care?
+## How do I use Classy State?
 
 1. Encapsulate your state in easy to understand vanilla JS, using ES6 classes.
 2. Use your state class in your React app without any modification.
 3. Enjoy built-in immutability, reactivity, and monitoring.
+
+## Example
+
+```js
+import React from "react";
+import { useClassyState } from "classy-state";
+
+class Example {
+  value = ""
+  setValue(newValue) {
+    this.value = newValue
+  }
+}
+
+function App() {
+  const example = useClassyState(Example);
+  
+  return (
+    <input
+      type="text"
+      value={example.value}
+      onChange={() => example.setValue(e.target.value)}
+    />
+  )
+}
+```
 
 ## Walkthrough
 
