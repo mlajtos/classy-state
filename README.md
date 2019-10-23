@@ -1,20 +1,17 @@
 # :tophat: Classy State
 
-> Don't fear the stateful classes.
+[What’s So Great About Redux?
+](https://www.freecodecamp.org/news/whats-so-great-about-redux-ac16f1cc0f8b/#535d):
 
-1. Write easy-to-grasp class with methods that mutate and access the encapsulated state.
-2. Run it with immutable backend powered by [Immer](https://immerjs.github.io/immer/docs/introduction).
-3. ???
-4. Profit!
+> Redux is essentially a slower but more sophisticated object system on top of JavaScript’s existing one, where reducers and middleware act as interpreters and interceptors around the JavaScript object that actually holds the state.
 
-This effort is motivated by the footnote of the article [What’s So Great About Redux?
-](https://www.freecodecamp.org/news/whats-so-great-about-redux-ac16f1cc0f8b/#535d).
+Classy state aims to provide immutability, reactivity, type safety, monitoring and clean code to your state managment.
 
-## :warning: Work in progress
+## Why should I care?
 
-This repo does not contain any code other then example of what *Classy State* is, how it might be used, and an explanation of how it works.
-
-If you want to try *Classy State* as it is currently implemented, go to this CodeSandbox – [Classy State Playground](https://codesandbox.io/s/new-kwwhp).
+1. Encapsulate your state in easy to understand vanilla JS, using ES6 classes.
+2. Use your state class in your React app without any modification.
+3. Enjoy built-in immutability, reactivity, and monitoring.
 
 ## Walkthrough
 
@@ -43,7 +40,7 @@ export class Counter {
 }
 ```
 
-And you would use it like this:
+And this is how you would use it:
 
 ```js
 import { Counter } from "Counter";
@@ -65,22 +62,24 @@ counter.decrease(3);
 console.log(counter.isValid()); // false
 ```
 
-This is a bit boring, but valid and straightforward code. However by the React community it is considered to be **a bad code** because:
+This is a bit boring, but valid, clean and straightforward code. However, React community consider this to be **a bad code** because:
 
 1. using mutable state is a bad practise
 2. you can't use it in your React component
 
 These are valid objections that should be adressed.
 
-### Mutable state
+#### Mutable state
 
 The first objection, im/mutability of the state, is beatifully solved by [Immer](https://immerjs.github.io/immer/docs/introduction). Immer lets you write seemingly mutable code that won't change the original state. It will produce a new state that is structurally shared with the original one – immutability is preserved.
 
 Immer is the essential part of *Classy State*, however you as the user will never know about it. So let's sweep this problem under the carpet for a while and we will pretend mutable code is okay.
 
-### Reactivity
+#### Reactivity
 
-Second objection can be distilled to the following: React doesn't know when the state has changed and so it doesn't know when to rerender. Reactivity, as we might call this issue, is related, but not synonymous to the immutability of the state. React solves this issue with explicit calls to functions that mutates the state. Now, when we touched React a bit, it might be good time to use `Counter` in our app:
+Second objection can be distilled to the following: React doesn't know when the state has changed and so it doesn't know when to rerender. Reactivity, as we might call this issue, is related, but not synonymous to the immutability of the state. React solves this issue with explicit calls to functions that mutates the state. Now, when we touched React a bit, it might be good time to use `Counter` in our app...
+
+### State without ceremony inside React
 
 ```js
 // CounterApp.js
