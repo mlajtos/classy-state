@@ -5,7 +5,7 @@
 
 > Redux is essentially a slower but more sophisticated object system on top of JavaScript’s existing one, where reducers and middleware act as interpreters and interceptors around the JavaScript object that actually holds the state.
 
-Classy state aims to provide immutability, reactivity, type safety, monitoring and clean code for your state managment.
+Classy state aims to provide immutability, reactivity, type safety, monitoring and clean code for your state managment using plain old classes.
 
 ## How do I use Classy State?
 
